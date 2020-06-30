@@ -866,7 +866,7 @@ def main_cli(opts, args, gt_instance_uuid=None):
 
             # Test execution order can be shuffled (also with provided random seed)
             # for test execution reproduction.
-            filtered_ctest_test_list_keys = filtered_ctest_test_list.keys()
+            filtered_ctest_test_list_keys = list(filtered_ctest_test_list.keys())
             if opts.shuffle_test_order:
                 # We want to shuffle test names randomly
                 random.shuffle(filtered_ctest_test_list_keys, lambda: shuffle_random_seed)
