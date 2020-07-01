@@ -18,10 +18,24 @@ from .host_test_plugins import HostTestPluginBase
 
 try:
     from pyocd.core.helpers import ConnectHelper
+    PYOCD_PRESENT = True
+except:
+    PYOCD_PRESENT = False
+
+# In pyocd 0.24.0 or later FileProgrammer was re-factored into it's own file so
+# handle both possible imports here
+try:
     from pyocd.flash.loader import FileProgrammer
+    print("Importing pyocd <= 0.23.0")
     PYOCD_PRESENT = True
 except ImportError:
     PYOCD_PRESENT = False
+    try:
+        from pyocd.flash.file_programmer import FileProgrammer
+        print("Importing pyocd > 0.23.0")
+        PYOCD_PRESENT = True
+    except ImportError:
+        PYOCD_PRESENT = False
 
 class HostTestPluginCopyMethod_pyOCD(HostTestPluginBase):
     # Plugin interface
